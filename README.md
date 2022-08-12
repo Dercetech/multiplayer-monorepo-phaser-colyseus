@@ -26,6 +26,13 @@ Texturepacker users will enjoy the scripts we wrote to ease and automate sprite/
 
 More about this soon!
 
+## Workspace setup
+
+The monorepo was built without Lerna since it's not necessary. Upgrade to Lerna only if your use case justifies adding a moving part to your toolchain.
+Many users struggle with importing the contents of their shared package into app, client and server packages.
+
+The VS Code plugin "pmneo.tsimporter" does a great job here. Given our tsconfig and package.json files, this extension properly suggests the proper auto-imports.
+
 ## Contributors
 
 ### Naming conventions
