@@ -4,10 +4,7 @@ import { Client, Room } from "colyseus.js";
 
 import { doCrap } from "@dercetech-mp/shared";
 
-// import { crap } from
-
 console.log("client code");
-
 doCrap();
 
 // interface InputPayload {
@@ -51,6 +48,12 @@ export class GameScene extends Phaser.Scene {
     } catch (e) {
       console.error(e);
     }
+
+    this.input.keyboard.on("keydown-D", (event) => {
+      if (this.remoteRef) {
+        this.remoteRef.visible = !this.remoteRef.visible;
+      }
+    });
   }
 
   private onJoined() {
@@ -60,23 +63,31 @@ export class GameScene extends Phaser.Scene {
       // console.log("A player has joined! Their unique session id is", sessionId);
       const entity = this.physics.add.image(player.x, player.y, "ship_0001");
 
-      if (sessionId === this.room.sessionId) {
-        // this is the current player!
+      const isPlayerMe = sessionId === this.room.sessionId;
+
+      if (isPlayerMe) {
         // (we are going to treat it differently during the update loop)
         this.currentPlayer = entity;
+        this.players[sessionId] = entity;
 
         // remoteRef is being used for debug only
         this.remoteRef = this.add.rectangle(0, 0, entity.width, entity.height);
         this.remoteRef.setStrokeStyle(1, 0xff0000);
 
         player.onChange = () => {
+          // No need to interpolate the server-side representation.
+          // Moreover this represents the tickrate with visual feedback.
           this.remoteRef.x = player.x;
           this.remoteRef.y = player.y;
+
+          entity.setData("serverX", player.x);
+          entity.setData("serverY", player.y);
         };
       } else {
         this.players[sessionId] = entity;
 
         player.onChange = (changes, key) => {
+          // Don't apply the position on the fly. Use the fixed tickrate to do so.
           // console.log(changes[0].value, key);
           // entity.x = player.x;
           // entity.y = player.y;
@@ -98,15 +109,19 @@ export class GameScene extends Phaser.Scene {
   }
 
   private fixedTick() {
+    const players = [this.currentPlayer];
+
     // Linear interpolation of player positions
     Object.keys(this.players)
-      .filter((playerSessionId) => playerSessionId !== this.room.sessionId)
+      // .filter((playerSessionId) => playerSessionId !== this.room.sessionId)
       .map((playerSessionId) => this.players[playerSessionId])
       .forEach((entity) => {
         const { serverX, serverY } = entity.data.values;
 
-        entity.x = Phaser.Math.Linear(entity.x, serverX, 0.2);
-        entity.y = Phaser.Math.Linear(entity.y, serverY, 0.2);
+        if (!isNaN(serverX) && !isNaN(serverY)) {
+          entity.x = Phaser.Math.Linear(entity.x, serverX, 0.2);
+          entity.y = Phaser.Math.Linear(entity.y, serverY, 0.2);
+        }
       });
 
     // Send update to server
