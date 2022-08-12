@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2017-06-20
-
 ### Added
+
+- [Feature 4](https://github.com/Dercetech/multiplayer-monorepo-phaser-colyseus/issues/7) Add server-side physics
+- [Feature 1](https://github.com/Dercetech/multiplayer-monorepo-phaser-colyseus/issues/1) Align player position with server confirmation
 
 ### Changed
 
@@ -19,4 +20,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [Feature 0] Monorepo plumbing (lightweight webb app, Ionic app, shared logic, server)
+- [Feature 0]() Monorepo plumbing (lightweight webb app, Ionic app, shared logic, server)
