@@ -1,8 +1,8 @@
 import { Schema, MapSchema, type } from "@colyseus/schema";
 
-import { Player } from "./MyPlayerState";
+import { PlayerSchema } from "./physics-game-object.schema";
 
 export class MyRoomState extends Schema {
   @type("string") mySynchronizedProperty: string = "Hello world";
-  @type({ map: Player }) players = new MapSchema<Player>();
+  @type({ map: PlayerSchema }) players = new MapSchema<PlayerSchema>();
 }

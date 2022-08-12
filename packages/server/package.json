@@ -31,13 +31,13 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
+    "@dercetech-mp/shared": "*",
     "@colyseus/arena": "^0.14.24",
     "@colyseus/monitor": "^0.14.22",
     "colyseus": "^0.14.23",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "phaser": "^3.55.2",
-    "@dercetech-mp/server": "*"
+    "phaser": "^3.55.2"
   },
   "directories": {
     "test": "test"

@@ -1,11 +1,9 @@
 import Phaser from "phaser";
 
+import { Schema, DataChange } from "@colyseus/schema";
 import { Client, Room } from "colyseus.js";
 
-import { doCrap } from "@dercetech-mp/shared";
-
-console.log("client code");
-doCrap();
+import { MyRoomState, PlayerSchema } from "@dercetech-mp/shared/src";
 
 // interface InputPayload {
 //   left: boolean;
@@ -16,7 +14,7 @@ doCrap();
 
 export class GameScene extends Phaser.Scene {
   client = new Client("ws://localhost:2567");
-  room: Room;
+  room: Room<MyRoomState>;
 
   private currentPlayer: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
   private remoteRef: Phaser.GameObjects.Rectangle;
@@ -59,9 +57,9 @@ export class GameScene extends Phaser.Scene {
   private onJoined() {
     console.log("Joined successfully!");
 
-    this.room.state.players.onAdd = (player, sessionId) => {
+    this.room.state.players.onAdd = (playerSchema: PlayerSchema, sessionId) => {
       // console.log("A player has joined! Their unique session id is", sessionId);
-      const entity = this.physics.add.image(player.x, player.y, "ship_0001");
+      const entity = this.physics.add.image(playerSchema.x, playerSchema.y, "ship_0001");
 
       const isPlayerMe = sessionId === this.room.sessionId;
 
@@ -74,26 +72,26 @@ export class GameScene extends Phaser.Scene {
         this.remoteRef = this.add.rectangle(0, 0, entity.width, entity.height);
         this.remoteRef.setStrokeStyle(1, 0xff0000);
 
-        player.onChange = () => {
+        playerSchema.onChange = () => {
           // No need to interpolate the server-side representation.
           // Moreover this represents the tickrate with visual feedback.
-          this.remoteRef.x = player.x;
-          this.remoteRef.y = player.y;
+          this.remoteRef.x = playerSchema.x;
+          this.remoteRef.y = playerSchema.y;
 
-          entity.setData("serverX", player.x);
-          entity.setData("serverY", player.y);
+          entity.setData("serverX", playerSchema.x);
+          entity.setData("serverY", playerSchema.y);
         };
       } else {
         this.players[sessionId] = entity;
 
-        player.onChange = (changes, key) => {
+        playerSchema.onChange = (changes: DataChange<any>[]) => {
           // Don't apply the position on the fly. Use the fixed tickrate to do so.
           // console.log(changes[0].value, key);
           // entity.x = player.x;
           // entity.y = player.y;
 
-          entity.setData("serverX", player.x);
-          entity.setData("serverY", player.y);
+          entity.setData("serverX", playerSchema.x);
+          entity.setData("serverY", playerSchema.y);
         };
       }
     };

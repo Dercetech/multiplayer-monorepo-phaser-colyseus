@@ -1,7 +1,6 @@
 import { Room, Client } from "colyseus";
-import { Player } from "./schema/MyPlayerState";
 
-import { MyRoomState } from "./schema/MyRoomState";
+import { MyRoomState, PlayerSchema } from "@dercetech-mp/shared/src";
 
 export class MyRoom extends Room<MyRoomState> {
   fixedTimeStep = 1000 / 60;
@@ -63,7 +62,7 @@ export class MyRoom extends Room<MyRoomState> {
     const mapWidth = 800;
     const mapHeight = 600;
 
-    const player: Player = new Player();
+    const player: PlayerSchema = new PlayerSchema();
     player.x = Math.random() * mapWidth;
     player.y = Math.random() * mapHeight;
 
