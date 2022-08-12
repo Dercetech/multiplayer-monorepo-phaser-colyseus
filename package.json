@@ -1,0 +1,22 @@
+{
+  "name": "@dercetech-mp/root",
+  "version": "0.0.1",
+  "description": "Monorepo structure",
+  "scripts": {
+    "start": "npm run server:start",
+    "app:build": "npm run build --workspace @dercetech-mp/app",
+    "app:start": "npm run start --workspace @dercetech-mp/app",
+    "client:build": "npm run build --workspace @dercetech-mp/client",
+    "client:start": "npm run start --workspace @dercetech-mp/client",
+    "server:build": "npm run build --workspace @dercetech-mp/server",
+    "server:start": "npm start --workspace @dercetech-mp/server"
+  },
+  "author": "Jérémie Mercier - Jem @Dercetech",
+  "license": "ISC",
+  "workspaces": [
+    "packages/app",
+    "packages/client",
+    "packages/server",
+    "packages/shared"
+  ]
+}

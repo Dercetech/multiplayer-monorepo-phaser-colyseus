@@ -1,0 +1,17 @@
+{
+  "name": "@dercetech-mp/shared",
+  "version": "0.0.1",
+  "description": "Shared MP libraries",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "npm run dev",
+    "clean": "node ../../node_modules/rimraf/bin tsconfig.tsbuildinfo dist/**/*",
+    "build": "npm run clean && tsc --build",
+    "dev": "npm run clean && tsc -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rimraf": "^2.7.1"
+  }
+}
