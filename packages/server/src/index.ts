@@ -10,7 +10,7 @@ import { listen } from "@colyseus/arena";
 
 // Import arena config
 import arenaConfig from "./arena.config";
-import { doCrap } from "../../shared/src/index";
+import { doCrap } from "@de";
 
 // import * as crap from "../../shared/index";
 doCrap();

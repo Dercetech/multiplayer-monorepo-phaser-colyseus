@@ -9,7 +9,9 @@
     "client:build": "npm run build --workspace @dercetech-mp/client",
     "client:start": "npm run start --workspace @dercetech-mp/client",
     "server:build": "npm run build --workspace @dercetech-mp/server",
-    "server:start": "npm start --workspace @dercetech-mp/server"
+    "server:start": "npm start --workspace @dercetech-mp/server",
+    "shared:build": "npm run build --workspace @dercetech-mp/shared",
+    "shared:start": "npm start --workspace @dercetech-mp/shared"
   },
   "author": "Jérémie Mercier - Jem @Dercetech",
   "license": "ISC",

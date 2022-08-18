@@ -1,15 +1,33 @@
 {
   "compilerOptions": {
-    "outDir": "lib",
+    /* Projects */
+
+    /* Language and Environment */
     "target": "es6",
-    "module": "commonjs",
-    "strict": true,
-    "allowJs": true,
-    "strictNullChecks": false,
-    "esModuleInterop": true,
+    "lib": ["es6"],
     "experimentalDecorators": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+
+    /* Modules */
+    "module": "commonjs",
+    "rootDir": "src",
+    "resolveJsonModule": true,
+
+    /* JavaScript Support */
+    "allowJs": false,
+
+    /* Emit */
+    "outDir": "build",
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "strictNullChecks": false,
+
+    /* Completeness */
+    "skipLibCheck": true
   },
   "include": ["src"]
 }
